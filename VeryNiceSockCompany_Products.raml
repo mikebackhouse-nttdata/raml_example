@@ -1,0 +1,115 @@
+#%RAML 0.8
+baseUri: https://mocksvc.mulesoft.com/mocks/0e714c93-2a0f-4544-8aa2-6b71892a34d3
+title: VeryNiceSockCompany_Products
+version: 1
+
+/products:
+  get:
+    description: |
+      Gets all products for the Very Nice Clothing Company
+    responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "productId": "12345-12345",
+                  "title": "Very Nice Socks",
+                  "description": "There are socks, and then there are Very Nice Socks.",
+                  "quantityInStock": 10000,
+                  "availableOnline": 1,
+                  "rrp": 20.00
+                }
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "No Products Found"
+                }
+  post:
+    description: |
+      Adds new product to your product list
+    body:
+      application/json:
+        example: |
+          {
+            "title": "Very Nice Socks",
+            "description": "There are socks, and then there are Very Nice Socks.",
+            "quantityInStock": 10000,
+            "availableOnline": 1,
+            "rrp": 20.00
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Product added to list",
+                "productId": "54321-54321"
+              }
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "error creating product"
+              }
+  /{productId}:
+    patch:
+      description: |
+        Update part of the product definition
+      body:
+        application/json:
+          example: |
+            {
+              "title": "My Updated Very Nice Socks"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "productId": "12345-12345",
+                  "title": "My Updated Very Nice Socks",
+                  "description": "There are socks, and then there are Very Nice Socks.",
+                  "quantityInStock": 10000,
+                  "availableOnline": 1,
+                  "rrp": 20.00
+                }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Error updating product",
+                  "cause": "error message from sys logs"
+                }
+        404: 
+          body:
+            applicaiton/json:
+              example: |
+                {
+                  "message": "ProductId not found",
+                  "productId": "12344-12345"
+                }
+    delete:
+      description: |
+        Removes a product from the system
+      responses:
+        204:
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Error attempting delete",
+                  "cause": "error meesage from sys logs"
+                }
+          
+        
+        
+        
+    
